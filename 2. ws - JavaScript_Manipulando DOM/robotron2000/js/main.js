@@ -1,20 +1,18 @@
-const plus = document.querySelector('#somar');
-const minus = document.querySelector('#subtrair');
-const arm = document.querySelector('#braco');
-
 const control = document.querySelectorAll(".controle-ajuste");
 
 control.forEach( (element) => {
     element.addEventListener("click", (event) => {
-        manipulateData(event.target.textContent);
+        manipulateData(event.target.textContent, event.target.parentNode);
     });
 });
 
-function manipulateData (op) {
+function manipulateData (op, parent) {
+    const part = parent.querySelector('.controle-contador');
+
     if(op === "+") {
-        arm.value = Number(arm.value) + 1;
+        part.value = Number(part.value) + 1;
     }
     else{
-        arm.value = Number(arm.value) - 1;
+        part.value = Number(part.value) - 1;
     }
 }
