@@ -1,5 +1,5 @@
-function playSound (buttonId) {
-    const audio = document.querySelector(buttonId);
+function playSound (audioId) {
+    const audio = document.querySelector(audioId);
 
     if(audio != null && audio.localName === 'audio'){
         audio.play();
