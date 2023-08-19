@@ -34,10 +34,10 @@ form.addEventListener("submit", (event) => {
         currentItem.id = exist.id;
         updateItem(currentItem);
 
-        //Atualizando o array de itens e, consequentemente atualizando o localStorage sobrescrevendo a string anterior
-        items[exist.id] = currentItem;
+        //Atualizando o array de itens procurando pela posição onde o id do elemento seja igual ao elemento enviado no form
+        items[items.findIndex(element => element.id === exist.id)] = currentItem;
     } else{ //Se não existir, cria um novo item 
-        currentItem.id = items.length;
+        currentItem.id = items[items.length - 1] ? (items[items.length - 1]).id + 1 : 0;
 
         buildItem(currentItem);
 
@@ -70,7 +70,7 @@ function buildItem(item) {
     newItem.innerHTML += item.name;
 
     //Adiciona o botão retornado pela função "deleteButton" como filho do novo item da lista
-    newItem.appendChild(deleteButton());
+    newItem.appendChild(deleteButton(item.id));
 
     //Adiciona a 'li' criada a lista já existente
     list.appendChild(newItem);
@@ -83,18 +83,23 @@ function updateItem(item){
 }
 
 //Criar um botão para remover itens da lista
-function deleteButton(){
+function deleteButton(id){
     const buttonElement = document.createElement("button");
     buttonElement.innerText = "X";
 
     buttonElement.addEventListener("click", function() {
-        deleteItem(this.parentNode);
+        deleteItem(this.parentNode, id);
     })
 
     return buttonElement;
 }
 
 //Remover um item da lista
-function deleteItem(item) {
+function deleteItem(item, id) {
     item.remove();
+
+    //Remove o item no array procura a posição do elemento com o mesmo ID
+    items.splice(items.findIndex(element => element.id === id), 1);
+
+    localStorage.setItem("items", JSON.stringify(items));
 }
