@@ -4,7 +4,15 @@ const list = document.getElementById("list");
 //Localiza o evento de submit do formulário
 form.addEventListener("submit", (event) => {
     event.preventDefault(); //Previne o funcionamento padrão do formulário
-    buildElement(event.target.elements['nome'].value, event.target.elements['quantidade'].value)
+    
+    const name = event.target.elements['nome'];
+    const quant =  event.target.elements['quantidade'];
+    
+    buildElement(name.value, quant.value);
+
+    //Zerando os campos do formulário após o envio
+    name.value = "";
+    quant.value = "";
 });
 
 //Criar um novo elemento na lista
@@ -23,4 +31,8 @@ function buildElement(name, quantity) {
 
     //Adiciona a 'li' criada a lista já existente
     list.appendChild(newItem);
+
+    //Armazenando os dados do novo item no localStorage
+    localStorage.setItem("name", name);
+    localStorage.setItem("quantity", quantity);
 }
