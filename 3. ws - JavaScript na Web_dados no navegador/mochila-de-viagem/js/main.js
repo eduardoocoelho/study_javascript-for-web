@@ -69,11 +69,32 @@ function buildItem(item) {
     newItem.appendChild(numberItem);
     newItem.innerHTML += item.name;
 
+    //Adiciona o botão retornado pela função "deleteButton" como filho do novo item da lista
+    newItem.appendChild(deleteButton());
+
     //Adiciona a 'li' criada a lista já existente
     list.appendChild(newItem);
 }
 
+//Atualizar um item existente
 function updateItem(item){
     //Atualiza o HTML selecionando o data-attribute ID 
     document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantity;
+}
+
+//Criar um botão para remover itens da lista
+function deleteButton(){
+    const buttonElement = document.createElement("button");
+    buttonElement.innerText = "X";
+
+    buttonElement.addEventListener("click", function() {
+        deleteItem(this.parentNode);
+    })
+
+    return buttonElement;
+}
+
+//Remover um item da lista
+function deleteItem(item) {
+    item.remove();
 }
