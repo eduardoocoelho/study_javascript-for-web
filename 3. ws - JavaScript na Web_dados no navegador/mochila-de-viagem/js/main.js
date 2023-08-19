@@ -33,6 +33,9 @@ form.addEventListener("submit", (event) => {
     if(exist){
         currentItem.id = exist.id;
         updateItem(currentItem);
+
+        //Atualizando o array de itens e, consequentemente atualizando o localStorage sobrescrevendo a string anterior
+        items[exist.id] = currentItem;
     } else{ //Se não existir, cria um novo item 
         currentItem.id = items.length;
 
@@ -71,5 +74,6 @@ function buildItem(item) {
 }
 
 function updateItem(item){
+    //Atualiza o HTML selecionando o data-attribute ID 
     document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantity;
 }
