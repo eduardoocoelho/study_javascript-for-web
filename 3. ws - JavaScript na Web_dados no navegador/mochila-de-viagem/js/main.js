@@ -1,6 +1,10 @@
 const form = document.getElementById("novoItem");
 const list = document.getElementById("list");
-const items = [];
+
+//Se tiver "items" no localStorage, será colocado no array
+//Se não tiver "items" no localStorage, inicializa um array vazio
+//JSON.parse para a string (JSON.stringify()) em objetos
+const items = JSON.parse(localStorage.getItem("items")) || [];
 
 //Localiza o evento de submit do formulário
 form.addEventListener("submit", (event) => {
@@ -33,7 +37,7 @@ function buildElement(name, quantity) {
     //Adiciona a 'li' criada a lista já existente
     list.appendChild(newItem);
 
-    //Criando um objeto do novo item com os dados passados pelo submit para armazenar em um array
+    //Criando um objeto do novo item com os dados passados pelo submit
     const currentItem = {
         "name": name,
         "quantity": quantity
@@ -43,5 +47,5 @@ function buildElement(name, quantity) {
     items.push(currentItem);
 
     //Armazenando os dados do novo item no localStorage convertendo os objetos do array para string
-    localStorage.setItem("item", JSON.stringify(items));
+    localStorage.setItem("items", JSON.stringify(items));
 }
