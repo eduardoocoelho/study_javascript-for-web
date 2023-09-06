@@ -11,9 +11,12 @@ const music = new Audio('sons/luna-rise-part-one.mp3');
 const audioPlay = new Audio('sons/play.wav');
 const audioPause = new Audio('sons/pause.mp3');
 const audioFinished = new Audio('sons/beep.mp3');
+const startSpan = document.querySelector('#start-pause span');
+const startBtImg = document.querySelector('.app__card-primary-butto-icon');
+const timer = document.querySelector('#timer');
 
-let runtimeSec = 5
-let intervalId = null
+let runtimeSec = 1500;
+let intervalId = null;
 
 music.loop = true;
 
@@ -28,21 +31,26 @@ musicInput.addEventListener('change', () => {
 });
 
 focusBt.addEventListener('click', () => {
+    runtimeSec = 1500;
     changeAttribute('foco');
     focusBt.classList.add('active');
 });
 
 shortBt.addEventListener('click', () => {
+    runtimeSec = 300;
     changeAttribute('descanso-curto');
     shortBt.classList.add('active');
 });
 
 longBt.addEventListener('click', () => {
+    runtimeSec = 900;
     changeAttribute('descanso-longo');
     longBt.classList.add('active');
 });
 
 function changeAttribute(value) {
+    showTimer();
+
     buttons.forEach(function (value){
         value.classList.remove('active');
     });
@@ -78,7 +86,7 @@ const countdown = () => {
         return;
     }
     runtimeSec -= 1;
-    console.log('Temporizador: ' + runtimeSec);
+    showTimer();
 }
 
 startPauseBt.addEventListener('click', playOrPause);
@@ -87,13 +95,27 @@ function playOrPause() {
     if(intervalId){
         audioPause.play();
         reset();
+        startSpan.textContent = 'Começar';
+        startBtImg.setAttribute('src', 'imagens/play_arrow.png')
         return;
     }
     audioPlay.play();
     intervalId = setInterval(countdown, 1000);
+    startBtImg.setAttribute('src', 'imagens/pause.png');
+    startSpan.textContent = 'Pausar';
 }
 
 function reset() {
     clearInterval(intervalId);
+    startSpan.textContent = 'Começar';
+    startBtImg.setAttribute('src', 'imagens/play_arrow.png')
     intervalId = null;
 }
+
+function showTimer(){
+    const time = new Date(runtimeSec * 1000);
+    const formattTime = time.toLocaleTimeString('pt-Br', {minute: '2-digit', second: '2-digit'})
+    timer.innerHTML = `${formattTime}`;
+}
+
+showTimer();
