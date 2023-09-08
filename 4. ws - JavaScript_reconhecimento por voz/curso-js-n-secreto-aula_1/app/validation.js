@@ -11,7 +11,16 @@ function validateGuess(guess){
         document.body.innerHTML = `
         <h2>Você acertou!</h2>
         <h3>O número secreto era ${number}
+
+        <button id="play-again" class="play-again-button">Jogar novamente</button>
         `;
+
+        const playAgainBtn = document.getElementById('play-again');
+        playAgainBtn.addEventListener('click', e => {
+            if(e.target.id == 'play-again'){
+                window.location.reload();
+            }
+        });
     }
     else if(number < randomNumber){
         guessElement.innerHTML += `
@@ -24,3 +33,4 @@ function validateGuess(guess){
         `;
     }
 }
+
