@@ -1,15 +1,17 @@
-var consultCEP = fetch('https://viacep.com.br/ws/01001000/json/')
-    .then(answer => answer.json())
-    .then(r => {
-        if(r.erro){
-            throw Error('Esse CEP não existe!')
+async function searchCEP(){
+    try{
+        var consultCEP = await fetch('https://viacep.com.br/ws/01001000/json/');
+        var jsonCEP = await consultCEP.json();
+        
+        if(jsonCEP.erro){
+            throw Error('CEP inválido!');
         }
         else{
-            console.log(r)
+            console.log(jsonCEP);
         }
-    })
-    .catch(error => console.log(error))
-    .finally(msg => console.log('Processamento concluído!'));
+    } catch (e){
+        console.log(e);
+    }
+}
 
-console.log(consultCEP);
-
+searchCEP();
