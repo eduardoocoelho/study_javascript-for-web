@@ -7,6 +7,6 @@ function filterBooks(){
 
     let filteredBooks = books.filter(book => book.categoria == btn.value);
 
-    console.table(filteredBooks);
+    //console.table(filteredBooks);
     showBooks(filteredBooks);
 }
