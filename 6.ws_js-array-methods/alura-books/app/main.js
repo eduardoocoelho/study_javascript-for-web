@@ -9,7 +9,7 @@ async function getBooksFromAPI(){
 
     //console.table(books);
 
-    let discountedBooks = applyDiscount(books);
-    showBooks(discountedBooks);
-    //showBooks(books);
+    //let discountedBooks = applyDiscount(books);
+    //showBooks(discountedBooks);
+    showBooks(books);
 }

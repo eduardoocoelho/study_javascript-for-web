@@ -1,7 +1,9 @@
 const booksElement = document.getElementById('livros');
+const fullPriceElement = document.getElementById('valor_total_livros_disponiveis');
 
 function showBooks(booksList){
     booksElement.innerHTML = '';
+    fullPriceElement.innerHTML = '';
 
     booksList.forEach(book => {
         let availability = book.quantidade > 0 ? 'livro__imagens' : 'livro__imagens indisponivel';
