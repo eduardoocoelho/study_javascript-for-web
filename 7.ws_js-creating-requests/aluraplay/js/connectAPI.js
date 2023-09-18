@@ -25,7 +25,14 @@ async function addVideo(title, description, url, image){
     return connectionJSON;
 }
 
+async function search(text){
+    const connection = await fetch(`http://localhost:3000/videos?q=${text}`);
+    
+    return connection.json();
+}
+
 export const connectAPI = {
     connect,
-    addVideo
+    addVideo,
+    search
 }
