@@ -14,7 +14,11 @@ async function searchVideo(event){
     }
 
     search.forEach(element => list.appendChild(
-        buildCard(element.titulo, element.descricao, element.url, element.imagem)))
+        buildCard(element.titulo, element.descricao, element.url, element.imagem)));
+
+    if(search.length == 0){
+        list.innerHTML = `<h2 class="mensagem__titulo">Não foi possível carregar os vídeos</h2>`
+    }
 }
 
 const searchBtn = document.querySelector("[data-search-btn]");

@@ -19,6 +19,10 @@ async function addVideo(title, description, url, image){
         })
     })
 
+    if(!connection.ok){
+        throw new Error("Não foi possível enviar o vídeo!");
+    }
+
     const connectionJSON = await connection.json();
 
     return connectionJSON;

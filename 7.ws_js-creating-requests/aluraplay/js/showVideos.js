@@ -21,11 +21,15 @@ export default function buildCard(title, description, url, image) {
 }
 
 async function videosList(){
-    const listAPI = await connectAPI.connect();
+    try{
+        const listAPI = await connectAPI.connect();
 
-    listAPI.forEach(element => list.appendChild(
-        buildCard(element.titulo, element.descricao, element.url, element.imagem)
-    ));
+        listAPI.forEach(element => list.appendChild(
+            buildCard(element.titulo, element.descricao, element.url, element.imagem)
+        ));
+    } catch{
+        list.innerHTML = `<h2 class="mensagem__titulo">Não foi possível carregar os vídeos</h2>`
+    }
 }
 
 videosList();
